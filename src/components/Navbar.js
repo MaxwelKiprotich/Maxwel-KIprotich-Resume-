@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Download, Menu, X, ChevronRight } from 'lucide-react';
+import { Download, Menu, X, ChevronRight, Sparkles } from 'lucide-react';
 
 const Navbar = () => {
   const location = useLocation();
@@ -9,7 +9,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [cursorVisible, setCursorVisible] = useState(true);
   const [typedName, setTypedName] = useState('');
-  const nameRef = useRef('MAXWELL');
+  const nameRef = useRef('MAXWEL');
   const cursorRef = useRef(null);
 
   const navItems = [
@@ -27,11 +27,10 @@ const Navbar = () => {
       if (index < nameRef.current.length) {
         setTypedName(nameRef.current.substring(0, index + 1));
         index++;
-        setTimeout(typeName, 150); // Typing speed
+        setTimeout(typeName, 150);
       }
     };
 
-    // Start typing after mount
     setTimeout(typeName, 500);
   }, []);
 
@@ -75,7 +74,6 @@ const Navbar = () => {
     link.click();
     document.body.removeChild(link);
     
-    // Optional: Add a toast notification instead of alert
     console.log('Portfolio download initiated');
   };
 
@@ -97,9 +95,9 @@ const Navbar = () => {
                   <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent font-chakra tracking-wider">
                     {typedName}
                     <span 
-                      className={`inline-block w-[2px] h-8 ml-1 bg-cyan-400 ${cursorVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-150`}
+                      className={`ml-1 text-cyan-400 ${cursorVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-150`}
                       ref={cursorRef}
-                    />
+                    >_</span>
                   </h1>
                   <div className="hidden sm:block">
                     <span className="text-xs text-emerald-400 font-mono tracking-widest bg-gray-800/50 px-2 py-1 rounded">
@@ -119,39 +117,73 @@ const Navbar = () => {
                       key={item.id}
                       to={item.path}
                       onClick={handleNavClick}
-                      className={`relative group px-3 py-2 text-sm font-medium transition-all duration-300 ${
+                      className={`relative group px-4 py-2.5 text-sm font-medium transition-all duration-300 ${
                         activeSection === item.path
-                          ? 'text-cyan-300'
-                          : 'text-gray-300 hover:text-white'
+                          ? 'text-white'
+                          : 'text-gray-400 hover:text-cyan-300'
                       }`}
                     >
-                      <span className="flex items-center whitespace-nowrap">
-                        <span className={`text-cyan-400 mr-2 transition-all duration-300 ${
-                          activeSection === item.path ? 'opacity-100' : 'opacity-0'
+                      <div className="relative z-10 flex items-center whitespace-nowrap">
+                        <span className={`relative mr-3 transition-all duration-300 ${
+                          activeSection === item.path ? 'opacity-100 scale-110' : 'opacity-70 group-hover:opacity-100'
                         }`}>
-                          //
+                          {activeSection === item.path && (
+                            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 blur-lg rounded-full"></div>
+                          )}
+                          <span className="relative">
+                            <Sparkles className={`w-3 h-3 ${activeSection === item.path ? 'text-cyan-400' : 'text-gray-500 group-hover:text-cyan-400'}`} />
+                          </span>
                         </span>
                         {item.label}
-                      </span>
-                      <div className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-400 via-purple-400 to-transparent transition-all duration-300 ${
-                        activeSection === item.path ? 'w-full' : 'w-0 group-hover:w-full'
+                      </div>
+                      
+                      {/* Animated underline effect */}
+                      <div className={`absolute bottom-0 left-0 h-[2px] transition-all duration-500 ${
+                        activeSection === item.path 
+                          ? 'w-full bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400' 
+                          : 'w-0 bg-gradient-to-r from-cyan-400 to-purple-400 group-hover:w-full'
                       }`} />
+                      
+                      {/* Glow effect for active item */}
+                      {activeSection === item.path && (
+                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10 rounded-lg blur-sm"></div>
+                      )}
                     </Link>
                   ))}
                 </div>
               </div>
 
-              {/* Download CV Button */}
+              {/* Download CV Button - Enhanced with similar design */}
               <button
                 onClick={handleDownloadCV}
-                className="relative px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-purple-600 via-pink-500 to-rose-500 text-white font-medium rounded-lg overflow-hidden group transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 hover:-translate-y-0.5 active:scale-95"
+                className="relative px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-gray-900 to-gray-800 text-white font-medium rounded-lg overflow-hidden group transition-all duration-500 hover:shadow-xl hover:shadow-cyan-500/20 active:scale-95 border border-gray-700"
               >
-                <span className="relative z-10 flex items-center whitespace-nowrap">
-                  <Download className="w-4 h-4 mr-2" />
-                  <span className="hidden sm:inline">GET PORTFOLIO</span>
-                  <span className="sm:hidden">CV</span>
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Glow background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Animated border */}
+                <div className="absolute inset-0 rounded-lg p-[1px]">
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                
+                {/* Button content */}
+                <div className="relative z-10 flex items-center justify-center space-x-2">
+                  <div className="relative">
+                    <Download className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
+                    <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                  <span className="hidden sm:inline bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent font-semibold tracking-wide">
+                    GET PORTFOLIO
+                  </span>
+                  <span className="sm:hidden bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent font-semibold">
+                    CV
+                  </span>
+                </div>
+                
+                {/* Sparkle effect */}
+                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <Sparkles className="w-2 h-2 text-cyan-400" />
+                </div>
               </button>
             </div>
 
@@ -163,19 +195,22 @@ const Navbar = () => {
                     key={item.id}
                     to={item.path}
                     onClick={handleNavClick}
-                    className={`px-2 py-1 text-sm font-medium rounded transition-all duration-200 ${
+                    className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-300 ${
                       activeSection === item.path
-                        ? 'text-cyan-300 bg-cyan-500/10'
-                        : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                        ? 'text-cyan-300 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30'
+                        : 'text-gray-400 hover:text-white hover:bg-gray-800/50 border border-transparent'
                     }`}
                   >
                     {item.label}
+                    {activeSection === item.path && (
+                      <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/10 to-purple-500/10 blur-sm"></div>
+                    )}
                   </Link>
                 ))}
                 <Link
                   to="/contact"
                   onClick={handleNavClick}
-                  className="px-3 py-1 text-sm font-medium bg-gradient-to-r from-cyan-600 to-purple-600 text-white rounded hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
+                  className="relative px-3 py-1.5 text-sm font-medium bg-gradient-to-r from-cyan-600/20 to-purple-600/20 text-white rounded-lg border border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
                 >
                   Contact
                 </Link>
@@ -186,22 +221,24 @@ const Navbar = () => {
             <div className="flex lg:hidden items-center space-x-2">
               <button
                 onClick={handleDownloadCV}
-                className="px-3 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 active:scale-95"
+                className="relative px-3 py-2 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 active:scale-95 border border-gray-700"
               >
-                <span className="flex items-center">
+                <div className="relative z-10 flex items-center">
                   <Download className="w-4 h-4" />
-                </span>
+                </div>
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/10 to-purple-500/10 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
               </button>
               
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 rounded-lg bg-gray-800 border border-cyan-500/30 hover:border-cyan-400 transition-all duration-300"
+                className="relative p-2 rounded-lg bg-gray-800 border border-cyan-500/30 hover:border-cyan-400 transition-all duration-300 group"
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               >
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 {isMenuOpen ? (
-                  <X className="w-5 h-5 text-cyan-400" />
+                  <X className="w-5 h-5 text-cyan-400 relative z-10" />
                 ) : (
-                  <Menu className="w-5 h-5 text-cyan-400" />
+                  <Menu className="w-5 h-5 text-cyan-400 relative z-10" />
                 )}
               </button>
             </div>
@@ -211,37 +248,61 @@ const Navbar = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="lg:hidden bg-gray-900/95 backdrop-blur-lg border-t border-cyan-500/20 animate-slideDown">
-            <div className="px-4 pt-2 pb-6 space-y-1">
+            <div className="px-4 pt-2 pb-6 space-y-2">
               {navItems.map((item) => (
                 <Link
                   key={item.id}
                   to={item.path}
                   onClick={handleNavClick}
-                  className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 flex items-center justify-between ${
+                  className={`relative w-full text-left px-4 py-3.5 rounded-lg transition-all duration-300 flex items-center justify-between group ${
                     activeSection === item.path
-                      ? 'bg-gradient-to-r from-cyan-500/10 to-purple-500/10 text-cyan-300'
-                      : 'text-gray-300 hover:bg-gray-800/50 hover:text-white'
+                      ? 'bg-gradient-to-r from-cyan-500/15 via-purple-500/15 to-pink-500/15 text-white'
+                      : 'text-gray-400 hover:text-white hover:bg-gray-800/30'
                   }`}
                 >
-                  <div className="flex items-center">
-                    {activeSection === item.path && (
-                      <span className="text-cyan-400 mr-3">//</span>
-                    )}
-                    {item.label}
-                  </div>
+                  {/* Active indicator */}
                   {activeSection === item.path && (
-                    <ChevronRight className="w-4 h-4 text-cyan-400" />
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-cyan-400 to-purple-400 rounded-r-full"></div>
                   )}
+                  
+                  <div className="flex items-center">
+                    <div className={`mr-3 transition-transform duration-300 ${
+                      activeSection === item.path ? 'scale-125' : 'group-hover:scale-110'
+                    }`}>
+                      <Sparkles className={`w-3 h-3 ${activeSection === item.path ? 'text-cyan-400' : 'text-gray-600 group-hover:text-cyan-400'}`} />
+                    </div>
+                    <span className={`font-medium ${activeSection === item.path ? 'text-cyan-300' : ''}`}>
+                      {item.label}
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-center">
+                    {activeSection === item.path ? (
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400 animate-pulse"></div>
+                        <ChevronRight className="w-4 h-4 text-cyan-400" />
+                      </div>
+                    ) : (
+                      <ChevronRight className="w-4 h-4 text-gray-600 opacity-0 group-hover:opacity-100 group-hover:text-cyan-400 transition-all duration-300" />
+                    )}
+                  </div>
                 </Link>
               ))}
               
-              <div className="pt-4 mt-2 border-t border-gray-800">
+              <div className="pt-4 mt-3 border-t border-gray-800">
                 <button
                   onClick={handleDownloadCV}
-                  className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 via-pink-500 to-rose-500 text-white font-medium rounded-lg flex items-center justify-center space-x-2 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 active:scale-95"
+                  className="relative w-full px-6 py-3.5 bg-gradient-to-r from-gray-900 to-gray-800 text-white font-medium rounded-lg flex items-center justify-center space-x-2 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 active:scale-95 border border-gray-700 group"
                 >
-                  <Download className="w-5 h-5" />
-                  <span>DOWNLOAD PORTFOLIO</span>
+                  {/* Animated border */}
+                  <div className="absolute inset-0 rounded-lg p-[1px]">
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
+                  
+                  <Download className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
+                  <span className="bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent font-semibold">
+                    DOWNLOAD PORTFOLIO
+                  </span>
                 </button>
               </div>
             </div>

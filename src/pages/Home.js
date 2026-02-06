@@ -5,12 +5,7 @@ import {
   Sparkles, 
   ArrowRight, 
   Eye, 
-  Smartphone, 
-  Globe, 
-  Shield, 
-  Zap,
   ChevronRight,
-  Play,
   Terminal,
   Coffee
 } from 'lucide-react';
@@ -19,47 +14,30 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [typedText, setTypedText] = useState('');
   const [cursorVisible, setCursorVisible] = useState(true);
-  const [activeTech, setActiveTech] = useState(0);
-  const codeRef = useRef(null);
+  const containerRef = useRef(null);
   
   const fullText = "Digital Architect & Full-Stack Developer";
   const typingSpeed = 100;
   const cursorBlinkSpeed = 530;
 
-  const technologies = [
-    { name: "React.js", icon: "⚛️", color: "text-cyan-400" },
-    { name: "React Native", icon: "📱", color: "text-blue-400" },
-    { name: "Firebase", icon: "🔥", color: "text-yellow-400" },
-    { name: "Node.js", icon: "🟢", color: "text-emerald-400" },
-    { name: "Figma", icon: "🎨", color: "text-purple-400" },
-    { name: "SEO", icon: "📈", color: "text-orange-400" },
-  ];
-
-  const features = [
-    {
-      icon: <Smartphone className="w-8 h-8" />,
-      title: "Mobile-First Design",
-      description: "Responsive applications that work seamlessly across all devices",
-      gradient: "from-cyan-500 to-blue-500"
-    },
-    {
-      icon: <Globe className="w-8 h-8" />,
-      title: "Web Development",
-      description: "Modern web applications with cutting-edge technologies",
-      gradient: "from-purple-500 to-pink-500"
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Secure Solutions",
-      description: "Enterprise-grade security and best practices",
-      gradient: "from-emerald-500 to-green-500"
-    },
-    {
-      icon: <Zap className="w-8 h-8" />,
-      title: "High Performance",
-      description: "Optimized for speed and scalability",
-      gradient: "from-orange-500 to-red-500"
-    }
+  // Technology icons for infinite slideshow
+  const technologyIcons = [
+    { id: 1, name: "React.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", color: "text-cyan-400" },
+    { id: 2, name: "React Native", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", color: "text-blue-400" },
+    { id: 3, name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg", color: "text-yellow-400" },
+    { id: 4, name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", color: "text-emerald-400" },
+    { id: 5, name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg", color: "text-gray-300" },
+    { id: 6, name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", color: "text-blue-300" },
+    { id: 7, name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", color: "text-green-400" },
+    { id: 8, name: "Tailwind", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", color: "text-teal-400" },
+    { id: 9, name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", color: "text-purple-400" },
+    { id: 10, name: "AWS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", color: "text-orange-400" },
+    { id: 11, name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", color: "text-emerald-400" },
+    { id: 12, name: "GraphQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg", color: "text-pink-400" },
+    { id: 13, name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", color: "text-blue-400" },
+    { id: 14, name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", color: "text-red-400" },
+    { id: 15, name: "Vue.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg", color: "text-green-400" },
+    { id: 16, name: "Sass", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg", color: "text-pink-400" },
   ];
 
   useEffect(() => {
@@ -72,12 +50,8 @@ const HomePage = () => {
       }
     };
 
-    // Start typing animation after a brief delay
     const typingTimer = setTimeout(typeWriter, 1000);
-
-    return () => {
-      clearTimeout(typingTimer);
-    };
+    return () => clearTimeout(typingTimer);
   }, []);
 
   useEffect(() => {
@@ -86,15 +60,7 @@ const HomePage = () => {
       setCursorVisible(prev => !prev);
     }, cursorBlinkSpeed);
 
-    // Technology carousel
-    const techInterval = setInterval(() => {
-      setActiveTech((prev) => (prev + 1) % technologies.length);
-    }, 3000);
-
-    return () => {
-      clearInterval(cursorInterval);
-      clearInterval(techInterval);
-    };
+    return () => clearInterval(cursorInterval);
   }, []);
 
   const handleContactClick = () => {
@@ -106,7 +72,7 @@ const HomePage = () => {
   };
 
   const codeSnippet = `const developer = {
-  name: "Maxwell Kiprotich",
+  name: "Maxwel Kiprotich",
   role: "Digital Architect",
   specialization: [
     "Frontend Development",
@@ -147,7 +113,7 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 pb-16 z-10">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left Content */}
             <div className="space-y-8">
               {/* Badge */}
@@ -160,7 +126,7 @@ const HomePage = () => {
 
               {/* Main Title */}
               <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold font-chakra tracking-tight">
-                <span className="block text-gray-300">MAXWELL</span>
+                <span className="block text-gray-300">MAXWEL</span>
                 <span className="block bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mt-2">
                   KIPROTICH
                 </span>
@@ -170,7 +136,7 @@ const HomePage = () => {
               <div className="h-12 flex items-center">
                 <p className="text-xl sm:text-2xl text-gray-400 font-mono">
                   {typedText}
-                  <span className={`inline-block w-0.5 h-8 ml-1 bg-cyan-400 ${cursorVisible ? 'opacity-100' : 'opacity-0'}`}></span>
+                  <span className={`ml-1 text-cyan-400 ${cursorVisible ? 'opacity-100' : 'opacity-0'}`}>_</span>
                 </p>
               </div>
 
@@ -178,27 +144,6 @@ const HomePage = () => {
               <p className="text-lg sm:text-xl text-gray-400 leading-relaxed max-w-2xl">
                 I architect <span className="text-cyan-300 font-semibold">digital experiences</span> that blend cutting-edge technology with intuitive design. Specializing in React.js, React Native, and digital solutions that drive measurable results.
               </p>
-
-              {/* Technology Stack Carousel */}
-              <div className="relative py-6">
-                <div className="flex items-center space-x-4 overflow-x-auto scrollbar-hide py-4">
-                  {technologies.map((tech, index) => (
-                    <div
-                      key={tech.name}
-                      className={`flex items-center space-x-2 px-4 py-3 rounded-lg transition-all duration-500 ${
-                        activeTech === index
-                          ? 'bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 shadow-lg shadow-cyan-500/10'
-                          : 'bg-gray-800/50 border border-gray-700'
-                      }`}
-                    >
-                      <span className="text-2xl">{tech.icon}</span>
-                      <span className={`font-mono font-medium ${tech.color} whitespace-nowrap`}>
-                        {tech.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -227,13 +172,13 @@ const HomePage = () => {
               {/* Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
                 {[
-                  { value: "50+", label: "Projects" },
-                  { value: "100%", label: "Satisfaction" },
-                  { value: "3+", label: "Years Exp" },
-                  { value: "24/7", label: "Support" }
+                  { value: "50+", label: "Projects", color: "text-cyan-300" },
+                  { value: "100%", label: "Satisfaction", color: "text-emerald-300" },
+                  { value: "3+", label: "Years Exp", color: "text-purple-300" },
+                  { value: "24/7", label: "Support", color: "text-blue-300" }
                 ].map((stat, index) => (
-                  <div key={index} className="text-center p-4 rounded-xl bg-gray-800/30 backdrop-blur-sm">
-                    <div className="text-2xl font-bold text-cyan-300">{stat.value}</div>
+                  <div key={index} className="text-center p-4 rounded-xl bg-gray-800/30 backdrop-blur-sm hover:bg-gray-800/50 transition-all duration-300 group">
+                    <div className={`text-2xl font-bold ${stat.color} group-hover:scale-110 transition-transform`}>{stat.value}</div>
                     <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
                   </div>
                 ))}
@@ -241,7 +186,7 @@ const HomePage = () => {
             </div>
 
             {/* Right Content - Code Window */}
-            <div className="relative lg:pl-12">
+            <div className="relative lg:pl-12 mt-16">
               <div className="relative group">
                 {/* Floating card effect */}
                 <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500"></div>
@@ -327,31 +272,62 @@ const HomePage = () => {
                     <div className="font-mono">JS • v1.0</div>
                   </div>
                 </div>
-
-                {/* Floating Elements Around Card */}
-                <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-purple-500/20 animate-pulse"></div>
-                <div className="absolute -bottom-4 -left-4 w-6 h-6 rounded-full bg-cyan-500/20 animate-pulse delay-500"></div>
-              </div>
-
-              {/* Features Grid */}
-              <div className="grid grid-cols-2 gap-4 mt-8">
-                {features.map((feature, index) => (
-                  <div
-                    key={index}
-                    className="p-4 rounded-xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 border border-gray-700 backdrop-blur-sm hover:border-cyan-500/30 transition-all duration-300 group hover:-translate-y-1"
-                  >
-                    <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${feature.gradient} p-2.5 mb-3 group-hover:scale-110 transition-transform`}>
-                      <div className="text-white">
-                        {feature.icon}
-                      </div>
-                    </div>
-                    <h3 className="text-white font-semibold mb-1">{feature.title}</h3>
-                    <p className="text-gray-400 text-sm">{feature.description}</p>
-                  </div>
-                ))}
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Infinite Technology Slideshow - Full Width */}
+      <section className="relative py-12 overflow-hidden" ref={containerRef}>
+        {/* Gradient Overlays */}
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-950 to-transparent z-10"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-gray-950 to-transparent z-10"></div>
+        
+        {/* First Infinite Scroll */}
+        <div className="flex animate-infinite-scroll-first mb-8">
+          {[...technologyIcons, ...technologyIcons].map((tech, index) => (
+            <div
+              key={`first-${tech.id}-${index}`}
+              className="flex-shrink-0 mx-4 group"
+            >
+              <div className="p-5 rounded-xl bg-gradient-to-br from-gray-800/30 to-gray-900/30 border border-gray-700 hover:border-cyan-500/30 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-cyan-500/20">
+                <div className="w-16 h-16 mb-2 flex items-center justify-center">
+                  <img 
+                    src={tech.logo} 
+                    alt={tech.name}
+                    className="w-full h-full object-contain filter brightness-110 group-hover:brightness-125 transition-all duration-300"
+                  />
+                </div>
+                <div className="text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center">
+                  {tech.name}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Second Infinite Scroll (delayed) */}
+        <div className="flex animate-infinite-scroll-second">
+          {[...technologyIcons.reverse(), ...technologyIcons.reverse()].map((tech, index) => (
+            <div
+              key={`second-${tech.id}-${index}`}
+              className="flex-shrink-0 mx-4 group"
+            >
+              <div className="p-5 rounded-xl bg-gradient-to-br from-gray-800/20 to-gray-900/20 border border-gray-700/50 hover:border-purple-500/30 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/20">
+                <div className="w-14 h-14 mb-2 flex items-center justify-center">
+                  <img 
+                    src={tech.logo} 
+                    alt={tech.name}
+                    className="w-full h-full object-contain filter brightness-110 group-hover:brightness-125 transition-all duration-300"
+                  />
+                </div>
+                <div className="text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center">
+                  {tech.name}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -396,7 +372,7 @@ const HomePage = () => {
             Let's collaborate to build something extraordinary that drives real results.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <button
               onClick={handleContactClick}
               className="group px-8 py-4 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-xl font-semibold text-lg hover:shadow-xl hover:shadow-cyan-500/25 transition-all duration-300 transform hover:-translate-y-1"
@@ -404,13 +380,6 @@ const HomePage = () => {
               <span className="flex items-center justify-center space-x-3">
                 <span>Start a Project</span>
                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </span>
-            </button>
-            
-            <button className="px-8 py-4 border-2 border-gray-700 rounded-xl font-semibold text-lg hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300">
-              <span className="flex items-center justify-center space-x-3">
-                <Play className="w-5 h-5" />
-                <span>Watch Showcase</span>
               </span>
             </button>
           </div>

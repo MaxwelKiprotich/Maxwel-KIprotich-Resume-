@@ -19,7 +19,6 @@ import {
 
 const ExperiencePage = () => {
   const [activeExperience, setActiveExperience] = useState(0);
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [yearsOfExperience, setYearsOfExperience] = useState(0);
 
   const experiences = [
@@ -194,8 +193,8 @@ const ExperiencePage = () => {
   // Calculate years of experience
   useEffect(() => {
     const startYear = 2022;
+    const currentYear = new Date().getFullYear();
     const years = currentYear - startYear;
-    setYearsOfExperience(years);
     
     // Animate counter
     let count = 0;
@@ -209,7 +208,7 @@ const ExperiencePage = () => {
     }, 200);
 
     return () => clearInterval(interval);
-  }, [currentYear]);
+  }, []);
 
   const stats = [
     { label: "Years Experience", value: yearsOfExperience, suffix: "+", color: "text-cyan-400" },

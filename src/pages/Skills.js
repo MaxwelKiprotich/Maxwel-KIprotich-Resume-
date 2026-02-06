@@ -4,19 +4,11 @@ import {
   Palette, 
   BarChart3, 
   Smartphone, 
-  Database, 
-  Shield,
-  Zap,
-  Cpu,
   Cloud,
-  GitBranch,
   Layers,
-  Globe,
   Server,
-  Terminal,
   Sparkles,
-  ChevronRight,
-  CheckCircle
+  ChevronRight
 } from 'lucide-react';
 
 const SkillsPage = () => {

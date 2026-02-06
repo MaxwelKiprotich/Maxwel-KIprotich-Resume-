@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-  Code2, 
   Sparkles, 
   ArrowRight, 
   Eye, 
@@ -70,18 +69,6 @@ const HomePage = () => {
   const handleWorkClick = () => {
     navigate('/projects');
   };
-
-  const codeSnippet = `const developer = {
-  name: "Maxwel Kiprotich",
-  role: "Digital Architect",
-  specialization: [
-    "Frontend Development",
-    "Mobile Applications", 
-    "SEO Strategy",
-    "Digital Design"
-  ],
-  getProjectQuote: () => "Let's build something amazing!"
-};`;
 
   return (
     <div className="relative overflow-hidden">

@@ -21,7 +21,6 @@ import {
   Shield,
   Zap,
   Mailbox,
-  X
 } from 'lucide-react';
 
 const ContactPage = () => {
